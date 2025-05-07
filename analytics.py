@@ -88,8 +88,8 @@ if uploaded_file:
 
     st.markdown("---")
     
-    st.subheader("🔍 Filtered View")
-    selected_program = st.selectbox("Filter by Program", ["All"] + sorted(df["Program"].dropna().unique()))
+    st.subheader("🔍 Filtered PG Program View")
+    selected_program = st.selectbox("Select the PG Program", ["All"] + sorted(df["Program"].dropna().unique()))
     if selected_program != "All":
         st.dataframe(df[df["Program"] == selected_program])
     else:
