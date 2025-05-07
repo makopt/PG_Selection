@@ -49,7 +49,7 @@ if uploaded_file:
     df["PSAU_Graduated"] = df["Graduated_From"].apply(lambda x: 100 if x == "جامعة الأمير سطام بن عبدالعزيز" else 0)
     
     st.markdown("---")
-    st.markdown("### 📊 Data Overview BlaBla")
+    st.markdown("### 📊 Data Overview")
     # Add a search bar that search in selected columns
     search_term = st.text_input("Search", "")
     if search_term:
