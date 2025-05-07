@@ -219,4 +219,5 @@ if uploaded_file:
 
 
 st.markdown("---")
-st.markdown("Made with ❤️ by Mahdi Khemakhem")
+st.markdown("Made by Mahdi Khemakhem")
+st.markdown("All rights not reserved 😎")
