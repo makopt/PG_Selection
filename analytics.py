@@ -50,6 +50,10 @@ if uploaded_file:
     
     st.markdown("---")
     st.markdown("### 📊 Data Overview")
+    # Add a search bar that search in selected columns
+    search_term = st.text_input("Search", "")
+    if search_term:
+        df = df[df.apply(lambda row: row.astype(str).str.contains(search_term, case=False).any(), axis=1)]
     st.dataframe(df, use_container_width=True)
 
     st.markdown("---")
