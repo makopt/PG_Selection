@@ -211,12 +211,6 @@ if uploaded_file:
             st.scatter_chart(df_selected[["GPA_Normalized", "Aptitude_Score"]].dropna(), x="GPA_Normalized", y="Aptitude_Score")
 
         
-        
-
-    
-    
-    
-
 
 st.markdown("---")
 st.markdown("Made by Mahdi Khemakhem")
