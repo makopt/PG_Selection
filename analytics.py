@@ -178,7 +178,7 @@ if uploaded_file:
         st.markdown("---")
         st.markdown(f"### 🏆 Selection Result: {selected_program}")
         # Display the top x applicants, x is given by the user
-        top_x = st.number_input("Top X Applicants", min_value=1, max_value=len(df_filtered), value=10, step=1)
+        top_x = st.number_input("Top X Applicants", min_value=1, max_value=len(df_filtered), value = 10 if len(df_filtered) > 10 else len(df_filtered), step=1)
         st.markdown(f"#### ✅ Top {top_x} Applicants")
         st.dataframe(df_filtered.head(top_x)[["Name", "National_ID", "Gender", "Score", "GPA_Normalized", "Aptitude_Score", "Bachelor_Major", "Graduated_From",]])
         df_selected = df_filtered.head(top_x)[["Name", "National_ID","Gender", "Score", "GPA_Normalized", "Aptitude_Score", "Bachelor_Major", "Graduated_From",]]
