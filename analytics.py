@@ -49,50 +49,50 @@ if uploaded_file:
     df["PSAU_Graduated"] = df["Graduated_From"].apply(lambda x: 100 if x == "جامعة الأمير سطام بن عبدالعزيز" else 0)
     
     st.markdown("---")
-    st.markdown("### 📊 Data Overview")
+    st.markdown("### 💾 Data Overview")
     # Add a search bar that search in selected columns
-    search_term = st.text_input("Search", "")
+    search_term = st.text_input("🔎 Search", "")
     if search_term:
         df = df[df.apply(lambda row: row.astype(str).str.contains(search_term, case=False).any(), axis=1)]
     st.dataframe(df, use_container_width=True)
 
     st.markdown("---")
-    st.markdown("### 📊 Data Summary")
+    st.markdown("### 📖 Data Summary")
 
     col1, col2 = st.columns(2)
     # Display the total number of applicants
     
     with col1:
-        st.markdown(f"**🔹 Total Applicants: {len(df)}**") 
+        st.markdown(f"**🔶 Total Applicants: {len(df)}**") 
 
-        st.markdown("**🔹 Gender Distribution**")
+        st.markdown("**🔶 Gender Distribution**")
         st.bar_chart(df["Gender"].value_counts())
 
-        st.markdown("**🔹 Top 10 Programs**")
+        st.markdown("**🔶 Top 10 Programs**")
         st.dataframe(df["Program"].value_counts().head(10))
 
-        st.markdown("**🔹 Top 20 Bachelor Majors**")
+        st.markdown("**🔶 Top 20 Bachelor Majors**")
         st.dataframe(df["Bachelor_Major"].value_counts().head(10))
 
-        st.markdown("**🔹 Top 20 Universities**")
+        st.markdown("**🔶 Top 20 Universities**")
         st.dataframe(df["Graduated_From"].value_counts().head(10))
 
     with col2:
-        st.markdown("**🔹 GPA Distribution (Normalized to 5)**")
+        st.markdown("**🔶 GPA Distribution (Normalized to 5)**")
         st.dataframe(df["GPA_Normalized"].describe())
         st.line_chart(sorted(df["GPA_Normalized"].dropna()))
         
-        st.markdown("**🔹 Aptitude Score Statistics**")
+        st.markdown("**🔶 Aptitude Score Statistics**")
         st.dataframe(df["Aptitude_Score"].describe())
         st.line_chart(sorted(df["Aptitude_Score"].dropna()))
 
-        st.markdown("**🔹 GPA vs Aptitude Score**")
+        st.markdown("**🔶 GPA vs Aptitude Score**")
         st.scatter_chart(df[["GPA_Normalized", "Aptitude_Score"]].dropna(), x="GPA_Normalized", y="Aptitude_Score")
 
 
     st.markdown("---")
     
-    st.subheader("🔍 Filtered PG Program View")
+    st.subheader("☑️ Filtered PG Program View")
     selected_program = st.selectbox("Select the PG Program", ["All"] + sorted(df["Program"].dropna().unique()))
     if selected_program != "All":
         st.dataframe(df[df["Program"] == selected_program])
@@ -109,49 +109,49 @@ if uploaded_file:
         st.success(f"Filtered data saved as {filtered_filename}")
 
     st.markdown("---")
-    st.markdown(f"### 📊 Filtered Data for Program: {selected_program}")
+    st.markdown(f"### 📈 Satatistics for Selected Program: {selected_program}")
     df_filtered = df[df["Program"] == selected_program] if selected_program != "All" else df
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(f"**🔹 Total Applicants: {len(df_filtered)}**")
+        st.markdown(f"**🔷 Total Applicants: {len(df_filtered)}**")
 
-        st.markdown("**🔹 Filterd Gender Distribution**")
+        st.markdown("**🔷 Filterd Gender Distribution**")
         st.bar_chart(df_filtered["Gender"].value_counts())
 
-        st.markdown("**🔹 Filterd Top 20 Bachelor Majors**")
+        st.markdown("**🔷 Filterd Top 20 Bachelor Majors**")
         st.dataframe(df_filtered["Bachelor_Major"].value_counts().head(10))
 
-        st.markdown("**🔹 Filterd Top 20 Universities**")
+        st.markdown("**🔷 Filterd Top 20 Universities**")
         st.dataframe(df_filtered["Graduated_From"].value_counts().head(10))
 
     with col2:
-        st.markdown("**🔹 Filterd GPA Distribution (Normalized to 5)**")
+        st.markdown("**🔷 Filterd GPA Distribution (Normalized to 5)**")
         st.dataframe(df_filtered["GPA_Normalized"].describe())
         st.line_chart(sorted(df_filtered["GPA_Normalized"].dropna()))
 
-        st.markdown("**🔹 Filterd Aptitude Score Statistics**")
+        st.markdown("**🔷 Filterd Aptitude Score Statistics**")
         st.dataframe(df_filtered["Aptitude_Score"].describe())
         st.line_chart(sorted(df_filtered["Aptitude_Score"].dropna()))
 
-        st.markdown("**🔹 Filterd GPA vs Aptitude Score**")
+        st.markdown("**🔷 Filterd GPA vs Aptitude Score**")
         st.scatter_chart(df_filtered[["GPA_Normalized", "Aptitude_Score"]].dropna(), x="GPA_Normalized", y="Aptitude_Score")
 
     st.markdown("---")
     st.markdown(f"### ⚙️ Score Calculation: {selected_program}")
 
-    st.markdown("#### 🔹 Select Considered Majors:")
+    st.markdown("#### 🔷 Select Considered Majors:")
     selected_majors = st.multiselect("Remove Excluded Majors", sorted(df_filtered["Bachelor_Major"].dropna().unique()), default=sorted(df_filtered["Bachelor_Major"].dropna().unique()))
     df_filtered = df_filtered[df_filtered["Bachelor_Major"].isin(selected_majors)]
     st.info(f"Total Applicants after filtering: {len(df_filtered)}")
     st.dataframe(df_filtered)
 
-    st.markdown("#### 🔹 Select Considered Universities:")
+    st.markdown("#### 🔷 Select Considered Universities:")
     selected_universities = st.multiselect("Remove Excluded Universities", sorted(df_filtered["Graduated_From"].dropna().unique()), default=sorted(df_filtered["Graduated_From"].dropna().unique()))
     df_filtered = df_filtered[df_filtered["Graduated_From"].isin(selected_universities)]
     st.info(f"Total Applicants after filtering: {len(df_filtered)}")
     st.dataframe(df_filtered)
     
-    st.markdown("#### 🔹 Score Calculation Formula:")
+    st.markdown("#### 🔷 Score Calculation Formula:")
     gpa_rate = st.number_input("GPA Rate (0.3-1.0)", min_value=0.3, max_value=1.0, value=0.5, step=0.05)
     aptitude_rate = st.number_input("Aptitude Rate (0.3-0.5)",  min_value=0.3, max_value=0.5, value=0.5, step=0.05)
     tests_rate = st.number_input("English Rate (0.0-0.3)", min_value=0.0, max_value=0.3, value=0.0, step=0.05)
